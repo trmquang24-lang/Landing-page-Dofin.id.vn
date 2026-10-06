@@ -3,6 +3,7 @@ import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
 import { extname, join, normalize } from "node:path";
 import { fileURLToPath } from "node:url";
+import { TAI_BAN_MOI } from "./tai-ban-moi.js";
 
 const GOC = join(fileURLToPath(new URL(".", import.meta.url)), "dist");
 const KIEU = {
@@ -10,10 +11,6 @@ const KIEU = {
   ".json": "application/json; charset=utf-8", ".svg": "image/svg+xml", ".ico": "image/x-icon",
   ".png": "image/png", ".jpg": "image/jpeg", ".webp": "image/webp", ".woff2": "font/woff2", ".txt": "text/plain; charset=utf-8",
 };
-
-/* Đường tải ẩn cho nút "Kiểm tra cập nhật" trong app (app chỉ nhận link trên dofin.id.vn).
-   Trỏ về bản Release mới nhất trên GitHub; mỗi bản phải đặt tên tệp đúng Cai-dat-Dofin.exe. */
-const TAI_BAN_MOI = "https://github.com/trmquang24-lang/Landing-page-Dofin.id.vn/releases/latest/download/Cai-dat-Dofin.exe";
 
 createServer(async (req, res) => {
   const duong = decodeURIComponent(new URL(req.url, "http://x").pathname);
