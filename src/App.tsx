@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Menu, Search, X } from "lucide-react";
 import { ContactButton, LogoMark, gradientStyle } from "./ui";
 import NenDong from "./NenDong";
-import { AnhDungApp, CamKet, DinhDang, HieuNang, TinhNangHoaDon } from "./PhanGiua";
+import { AnhDungApp, CamKet, ChayTrenMay, DinhDang, HieuNang, TinhNangHoaDon } from "./PhanGiua";
 import { BangGia, ChanTrang, LoiMoi } from "./PhanCuoi";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -114,6 +114,7 @@ export default function App() {
       <TinhNangHoaDon />
       <HieuNang />
       <DinhDang />
+      <ChayTrenMay />
       <CamKet />
       <BangGia />
       <LoiMoi />

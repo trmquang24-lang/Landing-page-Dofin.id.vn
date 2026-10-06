@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "motion/react";
-import { Minus, Square, X } from "lucide-react";
+import { HardDrive, Minus, MousePointerClick, Square, WifiOff, X } from "lucide-react";
 import { SectionEyebrow, gradientStyle } from "./ui";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -126,6 +126,62 @@ export function HieuNang() {
             <p className="mt-3 text-sm text-white/60">{c.nhan}</p>
           </motion.div>
         ))}
+      </div>
+    </section>
+  );
+}
+
+/* ---------- Ứng dụng web chạy trên máy: Dofin mở trong trình duyệt (dofin_launcher dùng webbrowser.open
+   tới 127.0.0.1), khách lần đầu dễ tưởng là trang mạng. Giọng nhẹ nhàng, không giảng giải. ---------- */
+const DIEU_HAY = [
+  { icon: MousePointerClick, ten: "Quen tay ngay từ đầu", mo: "Bấm, cuộn, mở thêm thẻ y như khi bạn lướt web hằng ngày." },
+  { icon: WifiOff, ten: "Không cần mạng để làm việc", mo: "Chỉ dùng Internet khi bạn tự tải hóa đơn từ Cổng hoặc kiểm tra bản mới." },
+  { icon: HardDrive, ten: "Dữ liệu ở yên trên máy", mo: "Hồ sơ, hóa đơn, tờ khai nằm trên ổ đĩa của bạn, không gửi đi đâu cả." },
+];
+
+export function ChayTrenMay() {
+  return (
+    <section className="relative z-10 max-w-6xl mx-auto px-6 py-20 md:py-28">
+      <div className="grid md:grid-cols-[1fr_1.15fr] gap-10 md:gap-14 items-center">
+        {/* Tấm kính tối sau chữ: dải sáng của video nền chạy ngang qua cột này. */}
+        <motion.div {...hien()} className="liquid-glass rounded-3xl bg-black/45 p-6 md:p-8">
+          <h2 className="text-3xl md:text-[2.6rem] font-semibold tracking-tight leading-[1.1]">
+            Mở trong trình duyệt,<br />chạy trên máy bạn.
+          </h2>
+          <p className="mt-6 text-white/60 text-base leading-[1.7] max-w-md">
+            Lần đầu mở Dofin, bạn sẽ thấy Dofin hiện ra trong một thẻ trình duyệt, trông như một trang web.
+            Thật ra Dofin không chạy trên mạng: địa chỉ 127.0.0.1 có nghĩa là “chính máy này”.
+          </p>
+          <p className="mt-4 text-white/60 text-base leading-[1.7] max-w-md">
+            Tụi mình chọn cách làm này để Dofin nhẹ, mở nhanh, dễ nhìn và dễ cập nhật về sau.
+          </p>
+          <ul className="mt-8 space-y-5">
+            {DIEU_HAY.map(({ icon: Icon, ten, mo }) => (
+              <li key={ten} className="flex gap-4">
+                <span className="liquid-glass w-10 h-10 rounded-xl flex items-center justify-center shrink-0">
+                  <Icon className="w-4 h-4 text-[#A4F4FD]" aria-hidden="true" />
+                </span>
+                <div>
+                  <p className="text-sm font-semibold">{ten}</p>
+                  <p className="mt-1 text-sm text-white/55 leading-[1.6]">{mo}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+        <motion.div {...hien(0.15)} className="rounded-2xl overflow-hidden border border-white/10 bg-[#0e1014]/90">
+          {/* Khung trình duyệt giản lược: cho khách thấy trước đúng cảnh họ sẽ gặp khi mở Dofin. */}
+          <div className="h-10 px-3 flex items-center gap-3 border-b border-white/10">
+            <span className="flex gap-1.5" aria-hidden="true">
+              <i className="w-2.5 h-2.5 rounded-full bg-white/20" /><i className="w-2.5 h-2.5 rounded-full bg-white/20" /><i className="w-2.5 h-2.5 rounded-full bg-white/20" />
+            </span>
+            <span className="flex-1 min-w-0 h-6 rounded-md bg-white/[0.06] px-3 flex items-center gap-2 text-[11px] text-white/60 truncate">
+              <HardDrive className="w-3 h-3 shrink-0" aria-hidden="true" /> 127.0.0.1 / Dofin chạy trên máy này
+            </span>
+          </div>
+          <img src="/anh/tong-quan.webp" alt="Dofin mở trong một thẻ trình duyệt, ở địa chỉ 127.0.0.1 của chính máy tính"
+            width={2880} height={1800} loading="lazy" decoding="async" className="block w-full h-auto" />
+        </motion.div>
       </div>
     </section>
   );
