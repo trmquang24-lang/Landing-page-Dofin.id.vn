@@ -135,7 +135,7 @@ export function HieuNang() {
    tới 127.0.0.1), khách lần đầu dễ tưởng là trang mạng. Giọng nhẹ nhàng, không giảng giải. ---------- */
 const DIEU_HAY = [
   { icon: MousePointerClick, ten: "Quen tay ngay từ đầu", mo: "Bấm, cuộn, mở thêm thẻ y như khi bạn lướt web hằng ngày." },
-  { icon: WifiOff, ten: "Không cần mạng để làm việc", mo: "Chỉ dùng Internet khi bạn tự tải hóa đơn từ Cổng hoặc kiểm tra bản mới." },
+  { icon: WifiOff, ten: "Không cần mạng để làm việc", mo: "Chỉ dùng Internet khi bạn tải hóa đơn từ Cổng, và hỏi bản mới một lần mỗi khi mở app." },
   { icon: HardDrive, ten: "Dữ liệu ở yên trên máy", mo: "Hồ sơ, hóa đơn, tờ khai nằm trên ổ đĩa của bạn, không gửi đi đâu cả." },
 ];
 
