@@ -98,7 +98,7 @@ def chup(cdp, ten):
         time.sleep(0.3)
     png = base64.b64decode(cdp.call("Page.captureScreenshot", {"format": "png"})["data"])
     anh = Image.open(io.BytesIO(png)).convert("RGB")
-    anh.save(RA + "\\" + ten + ".webp", "WEBP", quality=82, method=6)
+    anh.save(RA + "/" + ten + ".webp", "WEBP", quality=82, method=6)
     print("da chup", ten, anh.size)
 
 
