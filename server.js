@@ -11,8 +11,16 @@ const KIEU = {
   ".png": "image/png", ".jpg": "image/jpeg", ".webp": "image/webp", ".woff2": "font/woff2", ".txt": "text/plain; charset=utf-8",
 };
 
+/* Đường tải ẩn cho nút "Kiểm tra cập nhật" trong app (app chỉ nhận link trên dofin.id.vn).
+   Trỏ về bản Release mới nhất trên GitHub; mỗi bản phải đặt tên tệp đúng Cai-dat-Dofin.exe. */
+const TAI_BAN_MOI = "https://github.com/trmquang24-lang/Landing-page-Dofin.id.vn/releases/latest/download/Cai-dat-Dofin.exe";
+
 createServer(async (req, res) => {
   const duong = decodeURIComponent(new URL(req.url, "http://x").pathname);
+  if (duong === "/tai-ban-moi") {
+    res.writeHead(302, { Location: TAI_BAN_MOI, "Cache-Control": "no-cache" }).end();
+    return;
+  }
   // normalize + kiểm tiền tố: chặn "../" đọc tệp ngoài dist.
   let tep = normalize(join(GOC, duong));
   if (!tep.startsWith(GOC)) { res.writeHead(403).end(); return; }
