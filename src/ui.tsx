@@ -17,7 +17,7 @@ export function LogoMark({ className = "w-8 h-8" }: { className?: string }) {
 
 export const EMAIL = "trmquang24@gmail.com";
 // Số Zalo bán hàng: để trống thì nút Zalo tự ẩn, khỏi đưa người xem vào một link hỏng.
-export const ZALO = "";
+export const ZALO = "0898864584";
 
 /* Trang này để liên hệ mua, không phát bộ cài: nút chính dẫn xuống khối liên hệ cuối trang. */
 export function ContactButton({ label = "Liên hệ mua", href = "#lien-he", full = false }: { label?: string; href?: string; full?: boolean }) {

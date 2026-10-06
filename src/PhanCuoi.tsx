@@ -4,16 +4,19 @@ import { ContactButton, EMAIL, ZALO } from "./ui";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-/* Ba gói giữ chỗ: chưa có giá nên ghi "Liên hệ". Dofin không khoá tính năng theo gói,
-   nên các gói chỉ khác số máy và cách hỗ trợ. Có giá thật thì sửa đúng mảng này. */
-const GOI = [
-  { ten: "Cá nhân", gia: "Liên hệ", mo: "Cho người tự lo sổ sách của một doanh nghiệp nhỏ.",
-    quyen: ["Giấy phép cho 1 máy tính", "Đủ mọi tính năng của Dofin", "Dữ liệu nằm trên máy bạn", "Cấp giấy phép theo mã máy", "Hỗ trợ qua Zalo"] },
-  { ten: "Nhóm", gia: "Liên hệ", mo: "Cho kế toán làm sổ sách cho nhiều doanh nghiệp, mỗi máy một giấy phép.",
-    quyen: ["Giấy phép cho nhiều máy", "Đủ mọi tính năng của Dofin", "Dữ liệu nằm trên từng máy", "Cấp giấy phép theo mã máy", "Hỗ trợ qua Zalo"] },
-  { ten: "Doanh nghiệp", gia: "Liên hệ", mo: "Cho công ty cần cài cho cả phòng kế toán.", pro: true,
-    quyen: ["Số máy theo nhu cầu", "Đủ mọi tính năng của Dofin", "Dữ liệu nằm trên máy của công ty", "Cấp giấy phép theo mã máy", "Hỗ trợ ưu tiên qua Zalo"] },
-];
+/* Một mức giá duy nhất (chủ sản phẩm chốt ngày 06/10/2026). Đổi giá hay quyền lợi thì sửa ở đây. */
+const GOI = {
+  ten: "Giấy phép Dofin",
+  gia: "109.000đ",
+  mo: "Mua một lần, dùng vĩnh viễn trên máy của bạn.",
+  quyen: [
+    "Dùng vĩnh viễn, không thu phí hằng tháng",
+    "Cập nhật miễn phí 3 năm kể từ ngày bắt đầu dùng",
+    "Đủ mọi tính năng của Dofin",
+    "Dữ liệu nằm trên máy bạn",
+    "Mỗi giấy phép dùng cho 1 máy tính",
+  ],
+};
 
 export function BangGia() {
   return (
@@ -33,25 +36,23 @@ export function BangGia() {
           <span className="c3-watermark-line-2">Gọn gàng trở lại</span>
         </div>
       </div>
-      <div className="c3-grid">
-        {GOI.map((g) => (
-          <div key={g.ten} className={`c3-card ${g.pro ? "c3-card-pro" : ""}`}>
-            <div className="c3-tier-small">{g.ten}</div>
-            <div className="c3-tier-large">{g.gia}</div>
-            <p className="c3-desc">{g.mo}</p>
-            <ul className="c3-list">
-              {g.quyen.map((q) => (
-                <li key={q}>
-                  <span className="c3-check">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
-                  </span>
-                  {q}
-                </li>
-              ))}
-            </ul>
-            <a className="c3-btn" href="#lien-he">Liên hệ mua</a>
-          </div>
-        ))}
+      <div className="c3-grid c3-grid-mot">
+        <div className="c3-card c3-card-pro">
+          <div className="c3-tier-small">{GOI.ten}</div>
+          <div className="c3-tier-large">{GOI.gia}</div>
+          <p className="c3-desc">{GOI.mo}</p>
+          <ul className="c3-list">
+            {GOI.quyen.map((q) => (
+              <li key={q}>
+                <span className="c3-check">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
+                </span>
+                {q}
+              </li>
+            ))}
+          </ul>
+          <a className="c3-btn" href={`https://zalo.me/${ZALO}`} target="_blank" rel="noopener noreferrer">Nhắn Zalo để mua</a>
+        </div>
       </div>
     </section>
   );

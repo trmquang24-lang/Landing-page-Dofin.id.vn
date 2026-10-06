@@ -1,8 +1,6 @@
+import { useState } from "react";
 import { motion } from "motion/react";
-import {
-  Archive, Bell, Check, FileText, FolderOpen, LayoutGrid, ListChecks, Minus, MoreHorizontal, Paperclip,
-  Plus, Printer, Receipt, Search, Square, Trash2, Wallet, X,
-} from "lucide-react";
+import { Minus, Square, X } from "lucide-react";
 import { SectionEyebrow } from "./ui";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -13,118 +11,43 @@ const hien = (delay = 0) => ({
   transition: { duration: 0.7, delay, ease: EASE },
 });
 
-/* ---------- Ảnh dựng giao diện Dofin (dữ liệu mẫu, không phải khách hàng thật) ---------- */
-const MENU = [
-  { ten: "Tổng quan", icon: LayoutGrid },
-  { ten: "Hóa đơn", icon: Receipt, so: 12 },
-  { ten: "Tờ khai thuế", icon: FileText },
-  { ten: "Hồ sơ", icon: FolderOpen, so: 8, dangChon: true },
-  { ten: "Công nợ", icon: Wallet, so: 3 },
-  { ten: "Nhắc hạn", icon: Bell, so: 2 },
+/* ---------- Giao diện thật của Dofin (ảnh chụp từ bản chạy với dữ liệu mẫu) ---------- */
+const MAN = [
+  { ten: "Tổng quan", anh: "/anh/tong-quan.webp", mo: "Màn Tổng quan của Dofin: hồ sơ cần xử lý, hóa đơn đã tải, việc quá hạn" },
+  { ten: "Hồ sơ", anh: "/anh/ho-so.webp", mo: "Chi tiết một hồ sơ: đủ 3 trên 4 chứng từ, còn thiếu biên bản giao hàng" },
+  { ten: "Hóa đơn", anh: "/anh/hoa-don.webp", mo: "Kho hóa đơn điện tử chia đầu vào, đầu ra, kèm trạng thái hợp lệ" },
+  { ten: "Tờ khai thuế", anh: "/anh/to-khai.webp", mo: "Kho tờ khai thuế, lọc theo năm, quý, tháng" },
 ];
-const TRANG_THAI = [["Chờ chứng từ", "#A4F4FD"], ["Đang làm", "#00d2ff"], ["Hoàn tất", "#10b981"], ["Quá hạn", "#f59e0b"]];
-const HO_SO = [
-  { ten: "Công ty TNHH Minh An", tieuDe: "Hợp đồng cung cấp vật tư Quý 4", tom: "Còn thiếu 1 chứng từ: biên bản giao hàng", gio: "9:41", moi: true, chon: true },
-  { ten: "Công ty CP Sao Việt", tieuDe: "Thanh toán đợt 2 thiết bị văn phòng", tom: "Đủ chứng từ, chờ xác nhận đã thanh toán", gio: "8:12", moi: true },
-  { ten: "Vận tải Hòa Bình", tieuDe: "Dịch vụ vận chuyển tháng 9", tom: "Đã nhận hóa đơn điện tử số 00001284", gio: "Hôm qua" },
-  { ten: "Văn phòng Ngọc Lan", tieuDe: "Thuê văn phòng năm 2026", tom: "Nhắc hạn: gia hạn hợp đồng ngày 15/10", gio: "Hôm qua" },
-  { ten: "Thiết bị Phúc Thịnh", tieuDe: "Mua máy in và mực", tom: "Hoàn tất, bộ chứng từ đã lưu đủ", gio: "Thứ Hai" },
-  { ten: "Kê khai thuế", tieuDe: "Tờ khai 01/GTGT Quý 3", tom: "Đã nhập tờ khai, kỳ Quý 3 năm 2026", gio: "Thứ Hai" },
-];
-const CHUNG_TU = [["Hợp đồng kinh tế", true], ["Hóa đơn GTGT", true], ["Phiếu xuất kho", true], ["Ủy nhiệm chi", true], ["Biên bản giao hàng", false]] as const;
 
 export function AnhDungApp() {
+  const [chon, setChon] = useState(0);
   return (
     <section id="tinh-nang" className="relative z-10 max-w-6xl mx-auto px-6 py-16 md:py-24">
       <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.1, duration: 0.9, ease: EASE }}
         className="relative rounded-2xl overflow-hidden border border-white/10 bg-[#0e1014]/90 backdrop-blur-2xl">
-        <div className="h-10 px-4 flex items-center justify-between border-b border-white/10">
-          <span className="w-16" />
-          <span className="text-xs text-white/50">Dofin - Hồ sơ</span>
-          <span className="w-16 flex justify-end gap-3 text-white/40">
+        <div className="h-11 px-2 md:px-4 flex items-center justify-between gap-2 border-b border-white/10">
+          <div role="tablist" aria-label="Các màn của Dofin" className="flex gap-1 overflow-x-auto">
+            {MAN.map((m, i) => (
+              <button key={m.ten} type="button" role="tab" aria-selected={chon === i} onClick={() => setChon(i)}
+                className={`shrink-0 rounded-md px-3 py-1.5 text-xs transition-colors ${chon === i ? "bg-white/10 text-white" : "text-white/50 hover:text-white"}`}>
+                {m.ten}
+              </button>
+            ))}
+          </div>
+          <span className="hidden sm:flex gap-3 text-white/40 shrink-0">
             <Minus className="w-3.5 h-3.5" /><Square className="w-3 h-3" /><X className="w-3.5 h-3.5" />
           </span>
         </div>
-        <div className="grid grid-cols-12 h-[520px] text-left">
-          <aside className="hidden md:block col-span-3 border-r border-white/10 bg-black/30 p-4">
-            <div className="w-full flex items-center justify-center gap-2 rounded-lg bg-white text-black text-xs font-semibold px-3 py-2">
-              <Plus className="w-3.5 h-3.5" /> Tạo hồ sơ mới
-            </div>
-            <nav className="mt-5 space-y-0.5">
-              {MENU.map(({ ten, icon: Icon, so, dangChon }) => (
-                <div key={ten} className={`flex items-center gap-2.5 rounded-md px-2.5 py-1.5 text-xs ${dangChon ? "bg-white/10 text-white" : "text-white/60"}`}>
-                  <Icon className="w-3.5 h-3.5" /><span className="flex-1">{ten}</span>
-                  {so && <span className="text-white/40">{so}</span>}
-                </div>
-              ))}
-            </nav>
-            <p className="mt-6 px-2.5 text-[10px] uppercase tracking-wider text-white/40">Trạng thái</p>
-            <div className="mt-2 space-y-1">
-              {TRANG_THAI.map(([ten, mau]) => (
-                <div key={ten} className="flex items-center gap-2.5 px-2.5 py-1 text-xs text-white/60">
-                  <span className="w-2 h-2 rounded-full" style={{ background: mau }} />{ten}
-                </div>
-              ))}
-            </div>
-          </aside>
-          <div className="col-span-12 md:col-span-4 border-r border-white/10 flex flex-col min-w-0">
-            <div className="h-11 px-4 flex items-center gap-2 border-b border-white/10 text-xs text-white/40">
-              <Search className="w-3.5 h-3.5" /> Tìm hồ sơ, đối tác, số hóa đơn
-            </div>
-            <div className="overflow-hidden">
-              {HO_SO.map((h) => (
-                <div key={h.tieuDe} className={`px-4 py-3 border-b border-white/5 ${h.chon ? "bg-white/[0.06]" : ""}`}>
-                  <div className="flex items-center justify-between gap-2">
-                    <span className={`text-xs truncate ${h.moi ? "font-semibold text-white" : "text-white/70"}`}>{h.ten}</span>
-                    <span className="text-[10px] text-white/40 shrink-0">{h.gio}</span>
-                  </div>
-                  <p className={`mt-0.5 text-xs truncate ${h.moi ? "text-white/90" : "text-white/60"}`}>{h.tieuDe}</p>
-                  <p className="mt-0.5 text-[11px] text-white/40 truncate">{h.tom}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="hidden md:flex col-span-5 flex-col min-w-0">
-            <div className="h-11 px-4 flex items-center justify-between border-b border-white/10 text-white/50">
-              <div className="flex gap-1">
-                {[Paperclip, Printer, Archive, Trash2].map((Icon, i) => (
-                  <span key={i} className="w-7 h-7 rounded-md flex items-center justify-center hover:bg-white/5"><Icon className="w-3.5 h-3.5" /></span>
-                ))}
-              </div>
-              <MoreHorizontal className="w-4 h-4" />
-            </div>
-            <div className="p-5 overflow-hidden">
-              <h3 className="text-sm font-semibold">Hợp đồng cung cấp vật tư Quý 4</h3>
-              <div className="mt-3 flex items-center gap-2.5">
-                <span className="w-7 h-7 rounded-full bg-gradient-to-br from-[#00d2ff] to-[#0B2551] flex items-center justify-center text-[10px] font-semibold">MA</span>
-                <div className="flex-1 min-w-0">
-                  <p className="text-xs text-white">Công ty TNHH Minh An</p>
-                  <p className="text-[10px] text-white/40">HS-2026-0142, tạo hôm nay</p>
-                </div>
-                <span className="text-[10px] px-2 py-0.5 rounded-full border border-white/10 text-[#00d2ff]">Đang làm</span>
-              </div>
-              <div className="mt-4 rounded-lg border border-white/10 bg-white/[0.03] p-3">
-                <p className="flex items-center gap-1.5 text-[11px] font-medium text-[#A4F4FD]"><ListChecks className="w-3.5 h-3.5" /> Tình trạng bộ chứng từ</p>
-                <p className="mt-1.5 text-xs text-white/70 leading-[1.6]">Đủ 4 trên 5 chứng từ. Còn thiếu biên bản giao hàng. Việc tiếp theo: xác nhận đã giao hàng.</p>
-              </div>
-              <ul className="mt-4 space-y-2">
-                {CHUNG_TU.map(([ten, du]) => (
-                  <li key={ten} className="flex items-center gap-2.5 text-xs">
-                    <span className={`w-4 h-4 rounded-full flex items-center justify-center ${du ? "bg-white/15" : "border border-dashed border-white/30"}`}>
-                      {du && <Check className="w-2.5 h-2.5" />}
-                    </span>
-                    <span className={du ? "text-white/80" : "text-white/40"}>{ten}</span>
-                    {!du && <span className="ml-auto text-[10px] text-[#f59e0b]">Còn thiếu</span>}
-                  </li>
-                ))}
-              </ul>
-              <span className="mt-5 inline-flex items-center gap-1.5 rounded-md border border-white/10 px-2.5 py-1.5 text-[11px] text-white/60">
-                <Paperclip className="w-3 h-3" /> hoa-don-00001284.xml
-              </span>
-            </div>
-          </div>
+        {/* Ảnh chồng lên nhau, chỉ đổi độ mờ: chuyển màn không giật khung, ảnh đã tải sẵn. */}
+        <div className="relative aspect-[16/10]">
+          {MAN.map((m, i) => (
+            <img key={m.anh} src={m.anh} alt={m.mo} width={2880} height={1800} decoding="async"
+              loading={i === 0 ? "eager" : "lazy"}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${chon === i ? "opacity-100" : "opacity-0"}`} />
+          ))}
         </div>
       </motion.div>
+      <p className="mt-4 text-center"><span className="inline-block rounded-full bg-black/60 px-3 py-1 text-xs text-white/60">Ảnh chụp giao diện thật của Dofin, dùng dữ liệu mẫu.</span></p>
     </section>
   );
 }
