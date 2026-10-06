@@ -1,4 +1,6 @@
-"""Chạy lại khi giao diện Dofin đổi: cd I:Dofinocal_app rồi ...venvScriptspython.exe "I:Dofin Landingng-cuup_giao_dien.py".
+"""Chạy lại khi giao diện Dofin đổi, từ thư mục I:/Dofin/local_app:
+    ../.venv/Scripts/python.exe "I:/Dofin Landing/cong-cu/chup_giao_dien.py"
+rồi build và commit lại trang.
 
 Dựng một bản Dofin hộp cát có dữ liệu MẪU rồi chụp các màn chính cho trang giới thiệu.
 
@@ -17,7 +19,7 @@ sys.path.insert(0, r"I:\Dofin\local_app")
 from kiem_thu_giao_dien_that import HopCat, ev  # noqa: E402
 from PIL import Image  # noqa: E402
 
-RA = r"I:Dofin Landingpublicnh"
+RA = "I:/Dofin Landing/public/anh"
 
 
 def goi(h, phuong_thuc, duong, than=None):
