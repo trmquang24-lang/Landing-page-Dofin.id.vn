@@ -12,7 +12,7 @@ const GOI = {
   quyen: [
     "Dùng vĩnh viễn, không thu phí hằng tháng",
     "Cập nhật miễn phí 3 năm kể từ ngày bắt đầu dùng",
-    "Đủ mọi tính năng của Dofin",
+    "Đủ mọi tính năng, không giới hạn số hóa đơn",
     "Dữ liệu nằm trên máy bạn",
     "Mỗi giấy phép dùng cho 1 máy tính",
   ],

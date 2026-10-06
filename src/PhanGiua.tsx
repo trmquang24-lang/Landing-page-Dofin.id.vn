@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { Minus, Square, X } from "lucide-react";
-import { SectionEyebrow } from "./ui";
+import { SectionEyebrow, gradientStyle } from "./ui";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const hien = (delay = 0) => ({
@@ -95,6 +95,37 @@ export function TinhNangHoaDon() {
             ))}
           </div>
         </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- Hiệu năng: mốc 2 triệu là mốc đã đo thật trên hộp cát, đừng đổi số khi chưa đo lại ---------- */
+const CHI_SO = [
+  { so: "Không giới hạn", nhan: "số hóa đơn tải về" },
+  { so: "2.000.000", nhan: "hóa đơn trong kho" },
+  { so: "2.000.000", nhan: "hồ sơ chứng từ" },
+];
+
+// Dải sáng đứng yên: dải ánh kim của tiêu đề có đoạn tối, đặt lên con số thì có lúc số chìm mất.
+const SO_SANG = { ...gradientStyle, backgroundImage: "linear-gradient(to right, #ffffff 0%, #A4F4FD 55%, #00d2ff 100%)", backgroundSize: "100% auto", filter: "none" };
+
+export function HieuNang() {
+  return (
+    <section className="relative z-10 max-w-6xl mx-auto px-6 py-20 md:py-28 text-center">
+      <motion.h2 {...hien()} className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.08]">
+        Nhiều đến đâu,<br />vẫn mở ra trong tích tắc.
+      </motion.h2>
+      <motion.p {...hien(0.1)} className="mt-6 text-white/60 text-base leading-[1.6] max-w-xl mx-auto text-balance">
+        Dofin không giới hạn số hóa đơn bạn tải về. Kho dữ liệu đã được đo thử với 2 triệu hóa đơn và 2 triệu hồ sơ trên một máy tính.
+      </motion.p>
+      <div className="mt-14 grid sm:grid-cols-3 gap-10 sm:gap-0 sm:divide-x divide-white/10">
+        {CHI_SO.map((c, i) => (
+          <motion.div key={c.nhan} {...hien(0.15 + i * 0.08)} className="px-6">
+            <p className="text-4xl md:text-[2.6rem] font-semibold tracking-tight pb-1 whitespace-nowrap" style={SO_SANG}>{c.so}</p>
+            <p className="mt-3 text-sm text-white/60">{c.nhan}</p>
+          </motion.div>
+        ))}
       </div>
     </section>
   );
