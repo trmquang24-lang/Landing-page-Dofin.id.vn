@@ -90,7 +90,7 @@ export function LoiMoi() {
 export function ChanTrang() {
   return (
     <footer className="relative z-10 max-w-6xl mx-auto px-6 pb-12 flex flex-col sm:flex-row gap-3 items-center justify-between text-xs text-white/40">
-      <span>© 2026 Dofin by Trần Minh Quang. Bảo lưu mọi quyền.</span>
+      <span>© 2026 Dofin by Trần Minh Quang. All rights reserved.</span>
       <a href={`mailto:${EMAIL}`} className="hover:text-white transition-colors">{EMAIL}</a>
     </footer>
   );
